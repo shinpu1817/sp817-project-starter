@@ -1,0 +1,58 @@
+nacos:
+  config:
+    server-addr: ${nacos.address}
+    username: ${nacos.username}
+    password: ${nacos.password}
+    data-id: ${nacos.config-id}
+    namespace: ${nacos.config-namespace}
+    type: yaml
+    group: DEFAULT_GROUP
+    remote-first: true
+    auto-refresh: true
+
+
+dubbo:
+  provider:
+    delay: 1
+    parameters.enable-timeout-countdown: true
+    timeout: 30000
+    filter: appended
+  consumer:
+    check: false
+    loadbalance: roundrobin
+    timeout: 30000
+  application:
+    qos-enable: false
+    qos-port: -1
+    qos-accept-foreign-ip: false
+    name: ${spring.application.name}
+    serialize-check-status: DISABLE
+    check-serializable: true
+  protocol:
+    name: tri
+    port: -1
+    server: netty4
+    serialization: hessian2
+  registry:
+    timeout: 30000
+    register-mode: instance
+    check: true
+    protocol: nacos
+    address: ${nacos.address}
+    username: ${nacos.username}
+    password: ${nacos.password}
+
+springdoc:
+  swagger-ui:
+    enabled: false
+  api-docs:
+    enabled: false
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,49 @@
+server:
+  port: 9527
+
+spring:
+  cloud:
+    compatibility-verifier:
+      enabled: false
+    nacos:
+      server-addr: http://${nacos.address}
+      username: ${nacos.username}
+      password: ${nacos.password}
+
+nacos:
+  config:
+    server-addr: ${nacos.address}
+    username: ${nacos.username}
+    password: ${nacos.password}
+    data-id: ${nacos.config-id}
+    namespace: ${nacos.config-namespace}
+    type: yaml
+    group: DEFAULT_GROUP
+    remote-first: true
+    auto-refresh: true
+
+dubbo:
+  consumer:
+    check: false
+    loadbalance: roundrobin
+    timeout: 30000
+  application:
+    qos-enable: false
+    qos-port: -1
+    qos-accept-foreign-ip: false
+    name: ${spring.application.name}-rpc
+    serialize-check-status: DISABLE
+    check-serializable: true
+  protocol:
+    name: tri
+    port: 9600
+    server: netty4
+    serialization: hessian2
+  registry:
+    timeout: 30000
+    register-mode: instance
+    check: true
+    protocol: nacos
+    address: ${nacos.address}
+    username: ${nacos.username}
+    password: ${nacos.password}
